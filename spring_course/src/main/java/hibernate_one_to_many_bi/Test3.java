@@ -1,12 +1,12 @@
-package hibernate_one_to_many;
+package hibernate_one_to_many_bi;
 
-import hibernate_one_to_many.entity.Department;
-import hibernate_one_to_many.entity.Employee;
+import hibernate_one_to_many_bi.entity.Department;
+import hibernate_one_to_many_bi.entity.Employee;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-public class Test2 {
+public class Test3 {
     public static void main(String[] args) {
         try (SessionFactory factory = new Configuration().configure("hibernate.cfg.xml")
                 .addAnnotatedClass(Employee.class)
@@ -16,11 +16,8 @@ public class Test2 {
 
             session.beginTransaction();
 
-            Department department = session.get(Department.class, 3);
-            System.out.println(department.getEmployeeList());
-
             Employee employee = session.get(Employee.class, 5);
-            System.out.println(employee.getDepartment());
+            session.delete(employee);
 
             session.getTransaction().commit();
 

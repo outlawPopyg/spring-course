@@ -1,7 +1,7 @@
-package hibernate_one_to_many;
+package hibernate_one_to_many_uni;
 
-import hibernate_one_to_many.entity.Department;
-import hibernate_one_to_many.entity.Employee;
+import hibernate_one_to_many_uni.entity.Department;
+import hibernate_one_to_many_uni.entity.Employee;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -13,14 +13,18 @@ public class Test3 {
                 .addAnnotatedClass(Department.class)
                 .buildSessionFactory(); Session session = factory.getCurrentSession()) {
 
+            Employee employee = new Employee("Kalim", "Ahmetchin", 1013);
+            Employee employee2 = new Employee("Arthur", "Morgan", 1013);
+
+            Department department = new Department("Game", 120, 139);
+            department.addEmployeeToDepartment(employee);
+            department.addEmployeeToDepartment(employee2);
 
             session.beginTransaction();
 
-            Employee employee = session.get(Employee.class, 5);
-            session.delete(employee);
+            session.save(department);
 
             session.getTransaction().commit();
-
 
         }
     }
